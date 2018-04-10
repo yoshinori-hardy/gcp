@@ -4,7 +4,7 @@ resource "google_project" "gcedop" {
 }
 
 // main parent network
-module "build the base network" {
+module "build the VPC and NAT" {
   source       = "modules/network"
   source_image = "centos-6-v20180314"
   machine_type = "g1-small"

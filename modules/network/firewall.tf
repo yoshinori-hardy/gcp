@@ -6,8 +6,8 @@ resource "google_compute_firewall" "allow-ssh" {
     protocol = "tcp"
     ports    = ["22"]
   }
-
-  source_tags = ["fw-ssh"]
+  source_ranges = ["0.0.0.0/0"]
+  target_tags = ["fw-ssh"]
 }
 
 resource "google_compute_firewall" "allow-http" {
@@ -19,7 +19,8 @@ resource "google_compute_firewall" "allow-http" {
     ports    = ["80"]
   }
 
-  source_tags = ["fw-http"]
+  source_ranges = ["0.0.0.0/0"]
+  target_tags = ["fw-http"]
 }
 
 resource "google_compute_firewall" "allow-https" {
@@ -31,5 +32,6 @@ resource "google_compute_firewall" "allow-https" {
     ports    = ["443"]
   }
 
-  source_tags = ["fw-https"]
+  source_ranges = ["0.0.0.0/0"]
+  target_tags = ["fw-https"]
 }
