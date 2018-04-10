@@ -6,6 +6,7 @@ services.  The IaC is built using Terraform, full documentation can be found her
 
 https://www.terraform.io/docs/index.html
 
+![alt text](https://raw.githubusercontent.com/yoshinori-hardy/gcp-dop/master/docs/images/GCPDEVOPSPLATFORM.pdf)
 
 ## Installation
 
