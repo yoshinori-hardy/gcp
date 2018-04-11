@@ -39,7 +39,7 @@ resource "google_compute_firewall" "allow-https" {
 
 resource "google_compute_firewall" "vpn" {
   name    = "allow-vpn"
-  network = "${google_compute_network.gcpdop.name}"
+  network = "${google_compute_network.dop-vpc.name}"
 
   allow {
     protocol = "udp"
