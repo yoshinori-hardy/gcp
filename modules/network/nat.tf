@@ -55,7 +55,7 @@ resource "google_compute_instance_template" "vpn_instance_template" {
   network_interface {
     subnetwork = "${google_compute_subnetwork.sub-dmz.self_link}"
     access_config = {
-      vpn_ip = "${google_compute_address.vpn-ip.address}"
+//      vpn_ip = "${google_compute_address.vpn-ip.address}"
     }
   }
 
@@ -64,6 +64,7 @@ resource "google_compute_instance_template" "vpn_instance_template" {
   }
 
   service_account {
-    email = "${google_service_account.vpn-service-account.email}"
+    email = "${google_service_account.nat-service-account.email}"
+    scopes = ["storage-ro"]
   }
 }

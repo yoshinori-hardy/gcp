@@ -1,18 +1,19 @@
 resource "google_compute_firewall" "allow-ssh" {
   name    = "allow-ssh"
-  network = "${google_compute_network.gcpdop.name}"
+  network = "${google_compute_network.dop-vpc.name}"
 
   allow {
     protocol = "tcp"
     ports    = ["22"]
   }
+
   source_ranges = ["0.0.0.0/0"]
   target_tags = ["fw-ssh"]
 }
 
 resource "google_compute_firewall" "allow-http" {
   name    = "allow-http"
-  network = "${google_compute_network.gcpdop.name}"
+  network = "${google_compute_network.dop-vpc.name}"
 
   allow {
     protocol = "tcp"
@@ -25,7 +26,7 @@ resource "google_compute_firewall" "allow-http" {
 
 resource "google_compute_firewall" "allow-https" {
   name    = "allow-https"
-  network = "${google_compute_network.gcpdop.name}"
+  network = "${google_compute_network.dop-vpc.name}"
 
   allow {
     protocol = "tcp"
