@@ -65,5 +65,6 @@ resource "google_compute_instance_template" "nat_instance_template" {
 
   service_account {
     email = "${google_service_account.nat-service-account.email}"
+    scopes = ["storage-ro"]
   }
 }
