@@ -4,7 +4,7 @@ resource "google_service_account" "nat-service-account" {
 }
 
 resource "google_project_iam_binding" "nat" {
-  role    = "projects/admin-200808/roles/CustomNATIAMRole"
+  role    = "projects/peaceful-web-200808/roles/object_ro"
 
   members = [
     "serviceAccount:${google_service_account.nat-service-account.email}",
