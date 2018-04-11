@@ -6,3 +6,10 @@ re-created with random names at each infra build we would not be able to use hum
 readable names.  This also provides the security team a single place to manage custom
 security roles.  These roles should be created immediately after the project and 
 prior to running the remaining infrastructure build.
+
+## Pre-requisit
+
+Please ensure that you have enabled the IAM api on the project before attempting to 
+run this command
+
+https://console.developers.google.com/apis/api/iam.googleapis.com/overview?project=<project_id>
