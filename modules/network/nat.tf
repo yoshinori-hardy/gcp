@@ -16,7 +16,6 @@ resource "google_compute_region_instance_group_manager" "natservers" {
 data "template_file" "nat-start-script" {
   template = <<EOF
 #!/bin/bash -eax
-
 sudo service iptables start
 sudo chkconfig iptables on
 sysctl -w net.ipv4.ip_forward=1
@@ -55,8 +54,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
   network_interface {
     subnetwork = "${google_compute_subnetwork.sub-dmz.self_link}"
     access_config = {
-      vpn_ip = "${google_compute_address.vpn-ip.address}"
-      # Ephemeral  //comment line above out to default to ephemeral
+      nat_ip = "${google_compute_address.nat-ip.address}"
     }
   }
 
@@ -66,5 +64,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
 
   service_account {
     email = "${google_service_account.nat-service-account.email}"
+    scopes = ["storage-ro"]
   }
 }
+

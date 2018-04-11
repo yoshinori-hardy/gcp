@@ -1,4 +1,4 @@
 provider "google" {
-  project     = "admin-200808"
-  region      = "eu-west2"
+  project     = "peaceful-web-200808"
+  region      = "europe-west2"
 }
