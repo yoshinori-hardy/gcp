@@ -10,10 +10,10 @@ variable "region" {
   description = "region to deploy into"
 }
 
-variable "subnet_1" {
-  description = "subnet in zone 1"
+variable "subnet_dmz" {
+  description = "internet facing subnet"
 }
 
-variable "subnet_2" {
-  description = "subnet in zone 2"
+variable "subnet_app" {
+  description = "internal subnet"
 }
