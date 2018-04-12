@@ -7,7 +7,7 @@ module "build_the_vpc" {
   source         = "../modules/network"
   source_image   = "centos-6-v20180314"
   machine_type   = "g1-small"
-  region         = "europe-west2"
+#  region         = "europe-west2"
   subnet_dmz     = "10.1.1.0/24"
   subnets        = [
                    "10.1.2.0/24",
@@ -23,7 +23,9 @@ module "storage" {
 module "Provision_Jenkins" {
   source         = "../modules/jenkins"
   source_image   = "centos-6-v20180314"
-  machine_type   = "g1-small"
+  target_size    = "3"
+  jenkins_port   = "80"
+#  machine_type   = "g1-small"
   region         = "europe-west2"
   subnet_jenkins = "10.1.1.0/24"
 }

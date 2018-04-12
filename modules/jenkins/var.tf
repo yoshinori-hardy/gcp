@@ -13,6 +13,11 @@ variable "target_size" {
   default     = "3"
 }
 
+variable "machine_type" {
+  description = "Machine type to use"
+  default     = "g1-small"
+}
+
 variable "source_image" {
   description = "The boot disk image to use"
 }

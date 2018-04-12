@@ -1,7 +1,7 @@
 resource "google_compute_global_forwarding_rule" "jenkins" {
   name       = "${var.name}-rule"
   target     = "${google_compute_target_http_proxy.jenkins.self_link}"
-  port_range = "80"
+  port_range = "${var.jenkins-port}"
 }
 
 resource "google_compute_target_http_proxy" "jenkins" {

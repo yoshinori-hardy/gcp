@@ -1,31 +1,23 @@
-data "template_file" "web-start-script" {
+data "template_file" "jenkins-start-script" {
   template = <<EOF
 #!/bin/bash -eax
 
-source /etc/profile.d/python27.sh
-
-cd /opt && gsutil cp gs://yoshops/ansible-playbooks.zip .
-unzip ansible-playbooks.zip
-cd ansible-playbooks
-echo "sleeping for 30" && sleep 30
-ansible-playbook web.yml
+echo "fetch Ansible here and run it"
 EOF
   }
 
-resource "google_compute_instance_template" "web_instance_template" {
-  name        = "web-instance-template"
-  description = "This template is used to build WEB Server Instances"
+resource "google_compute_instance_template" "jenkins_instance_template" {
+  name        = "jenkins-instance-template"
+  description = "This template is used to build Jenkins Server Instances"
 
-  tags = ["web", "dev", "http-server"]
+  tags = ["jenkins", "fw-ssh", "fw-http"]
 
   labels = {
-    environment = "dev"
-    product = "sandbox"
-    role = "web-server"
+    role = "jenkins"
   }
 
   instance_description = "Built using TF instance template"
-  machine_type         = "n1-standard-1"
+  machine_type         = "g1-small"
   can_ip_forward       = false
 
   scheduling {
@@ -40,20 +32,20 @@ resource "google_compute_instance_template" "web_instance_template" {
   }
 
   network_interface {
-    subnetwork = "https://www.googleapis.com/compute/v1/projects/mindful-faculty-196010/regions/europe-west1/subnetworks/eu-west-1-dmz"
+    subnetwork = "${var.subnet_jenkins}"
     access_config = {
-      #nat_ip = "${google_compute_address.nat-ip.address}"
+      # nat_ip = "${google_compute_address.nat-ip.address}"
     }
   }
 
   metadata {
     foo = "bar"
-    startup-script = "${data.template_file.web-start-script.rendered}"
+    startup-script = "${data.template_file.jenkins-start-script.rendered}"
   }
 
   service_account {
-    email = "instance-role@mindful-faculty-196010.iam.gserviceaccount.com"
-    scopes = ["cloud-platform"]
+    email = "${google_service_account.jenkins-service-account.email}"
+    scopes = ["storage-ro"]
   }
 
   // Do not update if using with a managed instance group
