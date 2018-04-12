@@ -14,6 +14,7 @@ variable "subnet_dmz" {
   description = "internet facing subnet"
 }
 
-variable "subnet_app" {
-  description = "internal subnet"
+variable "subnets" {
+  description = "app subnet ranges"
+  type        = "list"
 }

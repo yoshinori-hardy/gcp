@@ -14,8 +14,9 @@ resource "google_compute_subnetwork" "sub-dmz" {
 }
 
 resource "google_compute_subnetwork" "sub-app" {
-  name                    = "sub-app"
-  ip_cidr_range           = "${var.subnet_app}"
+  count                   = 3
+  name                    = "sub-app-${count.index}"
+  ip_cidr_range           = "${var.subnets[count.index]}"
   network                 = "${google_compute_network.dop-vpc.self_link}"
   region                  = "${var.region}"
 }
