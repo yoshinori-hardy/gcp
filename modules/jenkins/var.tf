@@ -3,6 +3,10 @@ variable "name" {
   description = "The name of the app"
 }
 
+variable "region" {
+  description = "region we're working in"
+}
+
 variable "jenkins_port" {
   description = "Port to send Jenkins traffic to"
   default     = "8080"
@@ -22,7 +26,7 @@ variable "source_image" {
   description = "The boot disk image to use"
 }
 
-variable "subnet_jenkins" {
-  description = "The subnet to place Jenkins servers in"
-  default     = "sub-app-0"
+variable "app-subnets" {
+  type        = "list"
+  description = "imported app subnets from the network module"
 }

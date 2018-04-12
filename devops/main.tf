@@ -3,7 +3,7 @@
 //  project_id = "gcpdop"
 //}
 
-module "build_the_vpc" {
+module "Core_Network" {
   source         = "../modules/network"
   source_image   = "centos-6-v20180314"
   machine_type   = "g1-small"
@@ -26,6 +26,6 @@ module "Provision_Jenkins" {
   target_size    = "3"
   jenkins_port   = "80"
   machine_type   = "g1-small"
-#  region         = "europe-west2"
-  subnet_jenkins = "sub-app-0"
+  region         = "europe-west2"
+  app-subnets    = "${module.Core_Network.app-subnets}"
 }

@@ -32,14 +32,13 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   }
 
   network_interface {
-    subnetwork = "${var.subnet_jenkins}"
+    subnetwork = "${element(var.app-subnets, 0)}"
     access_config = {
       # nat_ip = "${google_compute_address.nat-ip.address}"
     }
   }
 
   metadata {
-    foo = "bar"
     startup-script = "${data.template_file.jenkins-start-script.rendered}"
   }
 
