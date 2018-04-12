@@ -16,7 +16,6 @@ resource "google_compute_region_instance_group_manager" "natservers" {
 data "template_file" "nat-start-script" {
   template = <<EOF
 #!/bin/bash -eax
-
 sudo service iptables start
 sudo chkconfig iptables on
 sysctl -w net.ipv4.ip_forward=1
@@ -68,3 +67,4 @@ resource "google_compute_instance_template" "nat_instance_template" {
     scopes = ["storage-ro"]
   }
 }
+

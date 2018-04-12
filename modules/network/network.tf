@@ -8,14 +8,15 @@ resource "google_compute_network" "dop-vpc" {
 // configure subnets 1 internal 1 internet facing
 resource "google_compute_subnetwork" "sub-dmz" {
   name                    = "sub-dmz"
-  ip_cidr_range           = "${var.subnet_1}"
+  ip_cidr_range           = "${var.subnet_dmz}"
   network                 = "${google_compute_network.dop-vpc.self_link}"
   region                  = "${var.region}"
 }
 
 resource "google_compute_subnetwork" "sub-app" {
-  name                    = "sub-app"
-  ip_cidr_range           = "${var.subnet_2}"
+  count                   = 3
+  name                    = "sub-app-${count.index}"
+  ip_cidr_range           = "${var.subnets[count.index]}"
   network                 = "${google_compute_network.dop-vpc.self_link}"
   region                  = "${var.region}"
 }

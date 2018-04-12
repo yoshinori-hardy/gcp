@@ -5,7 +5,8 @@ resource "google_project_iam_custom_role" "storage-object-ro" {
   permissions = ["storage.objects.get", "storage.objects.list"]
 }
 
-resource "google_project_iam_custom_role" "compute-instance-setTags" {
+
+resource "google_project_iam_custom_role" "compute_instance_setTags" {
   role_id     = "compute_tags"
   title       = "Compute Tag Instances"
   description = "Allow creation of instance tags"

@@ -1,6 +1,3 @@
-// GLOBAL variables placed in here
-
-# Source image
 variable "source_image" {
   description = "The boot disk image to use"
 }
@@ -13,10 +10,11 @@ variable "region" {
   description = "region to deploy into"
 }
 
-variable "subnet_1" {
-  description = "subnet in zone 1"
+variable "subnet_dmz" {
+  description = "internet facing subnet"
 }
 
-variable "subnet_2" {
-  description = "subnet in zone 2"
+variable "subnets" {
+  description = "app subnet ranges"
+  type        = "list"
 }
