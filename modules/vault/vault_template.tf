@@ -1,4 +1,4 @@
-data "template_file" "jenkins-start-script" {
+data "template_file" "vault-start-script" {
   template = <<EOF
 #!/bin/bash -eax
 
@@ -6,14 +6,14 @@ echo "fetch Ansible here and run it"
 EOF
   }
 
-resource "google_compute_instance_template" "jenkins_instance_template" {
-  name        = "jenkins-instance-template"
-  description = "This template is used to build Jenkins Server Instances"
+resource "google_compute_instance_template" "vault_instance_template" {
+  name        = "vault-instance-template"
+  description = "This template is used to build vault Server Instances"
 
-  tags = ["jenkins", "fw-ssh", "fw-http", "fw-https"]
+  tags = ["vault", "fw-ssh", "fw-http"]
 
   labels = {
-    role = "jenkins"
+    role = "vault"
   }
 
   instance_description = "Built using TF instance template"
@@ -31,13 +31,6 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
     boot         = true
   }
 
-  disk {
-    device_name  = "/dev/sdc"
-    auto_delete  = true
-    boot         = false
-    disk_size_gb = "20"
-  }
-
   network_interface {
     subnetwork = "${element(var.app-subnets, 0)}"
     access_config = {
@@ -46,11 +39,11 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   }
 
   metadata {
-    startup-script = "${data.template_file.jenkins-start-script.rendered}"
+    startup-script = "${data.template_file.vault-start-script.rendered}"
   }
 
   service_account {
-    email = "${google_service_account.jenkins-service-account.email}"
+    email = "${google_service_account.vault-service-account.email}"
     scopes = ["storage-ro"]
   }
 
