@@ -7,21 +7,11 @@ readable names.  This also provides the security team a single place to manage c
 security roles.  These roles should be created immediately after the project and
 prior to running the remaining infrastructure build.
 
-## Firewall rules
+## Pre-requisit
 
-Mange firewall rules based on tags, ip and protocols
+Please ensure that you have enabled the IAM api on the project before attempting to 
+run this command.
 
-```
-resource "google_compute_firewall" "rule-name" {
-  name    = "rule-name"
-  network = "${google_compute_network.dop-vpc.name}"
+https://console.developers.google.com/apis/api/iam.googleapis.com/overview?project=<project_id>
 
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags = ["fw-ssh"]
-}
-```
+Cloud resources API is also needed
