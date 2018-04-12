@@ -1,13 +1,13 @@
 resource "google_compute_global_forwarding_rule" "jenkins" {
   name       = "${var.name}-rule"
   target     = "${google_compute_target_http_proxy.jenkins.self_link}"
-  port_range = "${var.jenkins-port}"
+  port_range = "${var.jenkins_port}"
 }
 
 resource "google_compute_target_http_proxy" "jenkins" {
   name        = "${var.name}-http-proxy"
   description = "Forward traffic to the jenkins server"
-  url_map     = "${google_compute_url_map.default.self_link}"
+  url_map     = "${google_compute_url_map.jenkins.self_link}"
   depends_on  = ["google_compute_url_map.jenkins"]
 }
 
@@ -24,7 +24,7 @@ resource "google_compute_backend_service" "lp" {
   timeout_sec = 10
 
   backend {
-    group = "${google_compute_region_instance_group_manager.webservers.instance_group}"
+    group = "${google_compute_region_instance_group_manager.jenkins-servers.instance_group}"
   }
 
   health_checks = ["${google_compute_http_health_check.jenkins.self_link}"]

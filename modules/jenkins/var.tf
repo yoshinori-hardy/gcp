@@ -3,8 +3,8 @@ variable "name" {
   description = "The name of the app"
 }
 
-variable "jenkins-port" {
-  description = "port to send Jenkins traffic to"
+variable "jenkins_port" {
+  description = "Port to send Jenkins traffic to"
   default     = "8080"
 }
 
