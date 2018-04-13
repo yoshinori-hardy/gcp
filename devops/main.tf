@@ -16,7 +16,7 @@ module "Core_Network" {
                    ]
   nat-int-ip       = "10.1.1.10"
   can_ip_forward   = "true"
-  local_cmd_create = "sleep 30" 
+  local_cmd_create = "sleep 30"
 }
 
 module "storage" {
@@ -43,3 +43,12 @@ module "Provision_Vault" {
   app-subnets    = "${module.Core_Network.app-subnets}"
 }
 
+module "Provision_Ansible" {
+  source         = "../modules/ansible"
+  source_image   = "centos-6-v20180314"
+  target_size    = "3"
+  ansible_port   = "80"
+  machine_type   = "g1-small"
+  region         = "europe-west2"
+  app-subnets    = "${module.Core_Network.app-subnets}"
+}
