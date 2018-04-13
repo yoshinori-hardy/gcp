@@ -11,6 +11,18 @@ resource "google_compute_region_instance_group_manager" "natservers" {
   instance_template  = "${google_compute_instance_template.nat_instance_template.self_link}"
   region             = "${var.region}"
   target_size  = 1
+
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "${var.local_cmd_destroy}"
+    interpreter = ["sh", "-c"]
+  }
+
+  provisioner "local-exec" {
+    when        = "create"
+    command     = "${var.local_cmd_create}"
+    interpreter = ["sh", "-c"]
+  }
 }
 
 data "template_file" "nat-start-script" {
@@ -29,7 +41,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
   description = "This template is used to build NAT Instances"
 
 // add project ID to the tags?
-  tags = ["nat", "fw-ssh", "fw-int-out"]
+  tags = ["nat", "fw-ssh"]
 
   labels = {
     role = "nat-services"
@@ -38,7 +50,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
   instance_description = "Built using TF instance template"
   machine_type         = "${var.machine_type}"
   depends_on = ["google_compute_address.nat-ip", "google_service_account.nat-service-account"]
-  can_ip_forward       = true
+  can_ip_forward       = "${var.can_ip_forward}"
 
   scheduling {
     automatic_restart   = true

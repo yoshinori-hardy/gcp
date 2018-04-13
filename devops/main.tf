@@ -14,7 +14,9 @@ module "Core_Network" {
                    "10.1.3.0/24",
                    "10.1.4.0/24"
                    ]
-  nat-int-ip     = "10.1.1.10"
+  nat-int-ip       = "10.1.1.10"
+  can_ip_forward   = "true"
+  local_cmd_create = "sleep 30" 
 }
 
 module "storage" {
