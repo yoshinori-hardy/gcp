@@ -7,13 +7,13 @@ variable "region" {
   description = "region we're working in"
 }
 
-variable "jenkins_port" {
+variable "vault_port" {
   description = "Port to send Vault traffic to"
   default     = "80"
 }
 
 variable "target_size" {
-  description = "target size of jenkins instance group"
+  description = "target size of vault instance group"
   default     = "1"
 }
 

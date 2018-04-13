@@ -14,6 +14,7 @@ module "Core_Network" {
                    "10.1.3.0/24",
                    "10.1.4.0/24"
                    ]
+  nat-int-ip     = "10.1.1.10"
 }
 
 module "storage" {
@@ -29,3 +30,14 @@ module "Provision_Jenkins" {
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
 }
+
+module "Provision_Vault" {
+  source         = "../modules/vault"
+  source_image   = "centos-6-v20180314"
+  target_size    = "1"
+  vault_port     = "80"
+  machine_type   = "g1-small"
+  region         = "europe-west2"
+  app-subnets    = "${module.Core_Network.app-subnets}"
+}
+

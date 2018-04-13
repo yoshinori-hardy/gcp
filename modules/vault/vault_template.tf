@@ -10,7 +10,7 @@ resource "google_compute_instance_template" "vault_instance_template" {
   name        = "vault-instance-template"
   description = "This template is used to build vault Server Instances"
 
-  tags = ["vault", "fw-ssh", "fw-http"]
+  tags = ["vault", "fw-ssh", "fw-http", "fw-https", "rt-int"]
 
   labels = {
     role = "vault"
@@ -32,10 +32,7 @@ resource "google_compute_instance_template" "vault_instance_template" {
   }
 
   network_interface {
-    subnetwork = "${element(var.app-subnets, 0)}"
-    access_config = {
-      # nat_ip = "${google_compute_address.nat-ip.address}"
-    }
+    subnetwork = "${element(var.app-subnets, 1)}"
   }
 
   metadata {

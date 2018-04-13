@@ -10,7 +10,7 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   name        = "jenkins-instance-template"
   description = "This template is used to build Jenkins Server Instances"
 
-  tags = ["jenkins", "fw-ssh", "fw-http", "fw-https"]
+  tags = ["jenkins", "fw-ssh", "fw-http", "fw-https", "rt-int"]
 
   labels = {
     role = "jenkins"
@@ -32,7 +32,6 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   }
 
   disk {
-    device_name  = "/dev/sdc"
     auto_delete  = true
     boot         = false
     disk_size_gb = "20"
@@ -40,9 +39,6 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
 
   network_interface {
     subnetwork = "${element(var.app-subnets, 0)}"
-    access_config = {
-      # nat_ip = "${google_compute_address.nat-ip.address}"
-    }
   }
 
   metadata {

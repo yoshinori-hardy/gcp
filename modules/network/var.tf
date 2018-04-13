@@ -18,3 +18,7 @@ variable "subnets" {
   description = "app subnet ranges"
   type        = "list"
 }
+
+variable "nat-int-ip" {
+  description = "internal IP for the NAT box, needed to set up routes to the interweb"
+}
