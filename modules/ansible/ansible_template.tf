@@ -3,11 +3,16 @@ data "template_file" "ansible-start-script" {
 #!/bin/bash -eax
 
 echo "fetch Ansible here and run it"
+cd /opt && gsutil cp gs://ansible-plays/ansible-playbooks.zip .
+unzip ansible-playbooks.zip
+cd ansible-playbooks
+echo "sleeping for 30" && sleep 30
+ansible-playbook web.yml
 EOF
   }
 
 resource "google_compute_instance_template" "ansible_instance_template" {
-  name        = "ansible-instance-template"
+  name        = "ansible-instance-template-${uuid()}"
   description = "This template is used to build ansible Server Instances"
 
   tags = ["ansible", "fw-ssh", "fw-http", "fw-https", "rt-int"]

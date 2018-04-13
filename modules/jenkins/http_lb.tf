@@ -32,7 +32,7 @@ resource "google_compute_backend_service" "lp" {
 
 resource "google_compute_http_health_check" "jenkins" {
   name               = "${var.name}-hc-http"
-  request_path       = "/health_checks.html"
+  request_path       = "${var.health-check}"
   check_interval_sec = 5
   timeout_sec        = 2
 }

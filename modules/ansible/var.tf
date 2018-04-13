@@ -9,7 +9,12 @@ variable "region" {
 
 variable "ansible_port" {
   description = "Port to send ansible traffic to"
-  default     = "8080"
+  default     = "80"
+}
+
+variable "health-check" {
+  description = "path to http health check"
+  default     = "/health-checks.html"
 }
 
 variable "target_size" {

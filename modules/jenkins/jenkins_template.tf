@@ -3,11 +3,16 @@ data "template_file" "jenkins-start-script" {
 #!/bin/bash -eax
 
 echo "fetch Ansible here and run it"
+cd /opt && gsutil cp gs://ansible-plays/ansible-playbooks.zip .
+unzip ansible-playbooks.zip
+cd ansible-playbooks
+echo "sleeping for 30" && sleep 30
+ansible-playbook web.yml
 EOF
   }
 
 resource "google_compute_instance_template" "jenkins_instance_template" {
-  name        = "jenkins-instance-template"
+  name        = "jenkins-instance-template-${uuid()}"
   description = "This template is used to build Jenkins Server Instances"
 
   tags = ["jenkins", "fw-ssh", "fw-http", "fw-https", "rt-int"]
@@ -55,6 +60,7 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   // before making changes here
   lifecycle {
   create_before_destroy = true
+  ignore_changes        = true
   }
 
 }

@@ -12,6 +12,11 @@ variable "jenkins_port" {
   default     = "8080"
 }
 
+variable "health-check" {
+  description = "path to http health check"
+  default     = "/health-checks.html"
+}
+
 variable "target_size" {
   description = "target size of jenkins instance group"
   default     = "3"

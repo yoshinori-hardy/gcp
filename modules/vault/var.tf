@@ -12,6 +12,11 @@ variable "vault_port" {
   default     = "80"
 }
 
+variable "health-check" {
+  description = "path to http health check"
+  default     = "/health-checks.html"
+}
+
 variable "target_size" {
   description = "target size of vault instance group"
   default     = "1"

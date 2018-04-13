@@ -25,30 +25,33 @@ module "storage" {
 
 module "Provision_Jenkins" {
   source         = "../modules/jenkins"
-  source_image   = "centos-6-v20180314"
-  target_size    = "3"
+  source_image   = "centos7-base-1523629144"
+  target_size    = "1"
   jenkins_port   = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  health-check   = "/hello_world.html"
 }
 
 module "Provision_Vault" {
   source         = "../modules/vault"
-  source_image   = "centos-6-v20180314"
+  source_image   = "centos7-base-1523629144"
   target_size    = "1"
   vault_port     = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  health-check   = "/hello_world.html"
 }
 
 module "Provision_Ansible" {
   source         = "../modules/ansible"
-  source_image   = "centos-6-v20180314"
-  target_size    = "3"
+  source_image   = "centos7-base-1523629144"
+  target_size    = "1"
   ansible_port   = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  health-check   = "/hello_world.html"
 }
