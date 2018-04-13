@@ -29,7 +29,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
   description = "This template is used to build NAT Instances"
 
 // add project ID to the tags?
-  tags = ["nat", "fw-ssh"]
+  tags = ["nat", "fw-ssh", "fw-int-out"]
 
   labels = {
     role = "nat-services"
@@ -38,7 +38,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
   instance_description = "Built using TF instance template"
   machine_type         = "${var.machine_type}"
   depends_on = ["google_compute_address.nat-ip", "google_service_account.nat-service-account"]
-  can_ip_forward       = true
+  can_ip_forward       = "${var.can_ip_forward}"
 
   scheduling {
     automatic_restart   = true
@@ -53,6 +53,7 @@ resource "google_compute_instance_template" "nat_instance_template" {
 
   network_interface {
     subnetwork = "${google_compute_subnetwork.sub-dmz.self_link}"
+    address    = "${var.nat-int-ip}"
     access_config = {
       nat_ip = "${google_compute_address.nat-ip.address}"
     }
@@ -67,4 +68,3 @@ resource "google_compute_instance_template" "nat_instance_template" {
     scopes = ["storage-ro"]
   }
 }
-

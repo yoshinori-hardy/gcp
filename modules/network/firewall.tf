@@ -49,3 +49,24 @@ resource "google_compute_firewall" "vpn" {
   source_ranges = ["0.0.0.0/0"]
   target_tags = ["fw-vpn"]
 }
+
+resource "google_compute_firewall" "allow-internal" {
+  name    = "allow-internal"
+  network = "${google_compute_network.dop-vpc.name}"
+
+  allow {
+    protocol = "icmp"
+  } 
+
+  allow {
+    protocol = "tcp"
+    ports    = ["0-65535"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["0-65535"]
+  }
+
+  source_ranges = ["10.1.0.0/16"]
+}
