@@ -21,7 +21,7 @@ resource "google_compute_backend_service" "lp" {
   name        = "${var.name}-service"
   port_name   = "http"
   protocol    = "HTTP"
-  timeout_sec = 10
+  timeout_sec = 2
 
   backend {
     group = "${google_compute_region_instance_group_manager.jenkins-servers.instance_group}"
@@ -34,5 +34,5 @@ resource "google_compute_http_health_check" "jenkins" {
   name               = "${var.name}-hc-http"
   request_path       = "${var.health-check}"
   check_interval_sec = 5
-  timeout_sec        = 2
+  timeout_sec        = 3
 }

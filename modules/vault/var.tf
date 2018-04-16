@@ -35,3 +35,13 @@ variable "app-subnets" {
   type        = "list"
   description = "imported app subnets from the network module"
 }
+
+variable local_cmd_create {
+  description = "Command to run on create as local-exec provisioner for the instance group manager."
+  default     = ":"
+}
+
+variable local_cmd_destroy {
+  description = "Command to run on destroy as local-exec provisioner for the instance group manager."
+  default     = ":"
+}

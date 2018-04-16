@@ -12,7 +12,7 @@ EOF
   }
 
 resource "google_compute_instance_template" "jenkins_instance_template" {
-  name        = "jenkins-instance-template-${uuid()}"
+  name        = "${var.name}-${uuid()}"
   description = "This template is used to build Jenkins Server Instances"
 
   tags = ["jenkins", "fw-ssh", "fw-http", "fw-https", "rt-int"]

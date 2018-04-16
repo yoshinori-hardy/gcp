@@ -24,7 +24,7 @@ EOF
   }
 
 resource "google_compute_instance_template" "vpn_instance_template" {
-  name        = "vpn-instance-template"
+  name        = "vpn-${uuid()}"
   depends_on = ["google_service_account.vpn-service-account"]
   description = "This template is used to build VPN Instances"
 

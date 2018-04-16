@@ -12,7 +12,7 @@ EOF
   }
 
 resource "google_compute_instance_template" "ansible_instance_template" {
-  name        = "ansible-instance-template-${uuid()}"
+  name        = "${var.name}-${uuid()}"
   description = "This template is used to build ansible Server Instances"
 
   tags = ["ansible", "fw-ssh", "fw-http", "fw-https", "rt-int"]

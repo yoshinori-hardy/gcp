@@ -12,7 +12,7 @@ EOF
   }
 
 resource "google_compute_instance_template" "vault_instance_template" {
-  name        = "vault-instance-template-${uuid()}"
+  name        = "${var.name}-${uuid()}"
   description = "This template is used to build vault Server Instances"
 
   tags = ["vault", "fw-ssh", "fw-http", "fw-https", "rt-int"]
