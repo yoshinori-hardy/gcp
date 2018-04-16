@@ -1,4 +1,4 @@
-data "template_file" "jenkins-start-script" {
+data "template_file" "app-start-script" {
   template = <<EOF
 #!/bin/bash -eax
 
@@ -11,18 +11,18 @@ ansible-playbook web.yml
 EOF
   }
 
-resource "google_compute_instance_template" "jenkins_instance_template" {
+resource "google_compute_instance_template" "app_instance_template" {
   name        = "${var.name}-${uuid()}"
-  description = "This template is used to build Jenkins Server Instances"
+  description = "This template is used to build Application Server Instances"
 
-  tags = ["jenkins", "fw-ssh", "fw-http", "fw-https", "rt-int"]
+  tags = ["${var.name}", "fw-ssh", "fw-http", "fw-https", "rt-int"]
 
   labels = {
-    role = "jenkins"
+    role = "${var.name}"
   }
 
   instance_description = "Built using TF instance template"
-  machine_type         = "g1-small"
+  machine_type         = "${var.machine_type}"
   can_ip_forward       = false
 
   scheduling {
@@ -39,19 +39,21 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   disk {
     auto_delete  = true
     boot         = false
-    disk_size_gb = "20"
+    disk_size_gb = "${var.disk_size_gb}"
   }
 
   network_interface {
-    subnetwork = "${element(var.app-subnets, 0)}"
+    #subnetwork = "${element(var.app-subnets, count.index)}"
+    #subnetwork = "${lookup(sub-map, var.name, [default])}"
+    subnetwork = "${var.sub-map["${var.name}"]}"
   }
 
   metadata {
-    startup-script = "${data.template_file.jenkins-start-script.rendered}"
+    startup-script = "${data.template_file.app-start-script.rendered}"
   }
 
   service_account {
-    email = "${google_service_account.jenkins-service-account.email}"
+    email = "${google_service_account.app-service-account.email}"
     scopes = ["storage-ro"]
   }
 
@@ -60,7 +62,6 @@ resource "google_compute_instance_template" "jenkins_instance_template" {
   // before making changes here
   lifecycle {
   create_before_destroy = true
-  ignore_changes        = true
   }
 
 }

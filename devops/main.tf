@@ -6,6 +6,11 @@
 module "Core_Network" {
   source         = "../modules/network"
   source_image   = "centos-6-v20180314"
+  name           = [
+                   "jenkins",
+                   "vault",
+                   "ansible"
+                   ]
   machine_type   = "g1-small"
   region         = "europe-west2"
   subnet_dmz     = "10.1.1.0/24"
@@ -24,34 +29,43 @@ module "storage" {
 }
 
 module "Provision_Jenkins" {
-  source         = "../modules/jenkins"
+  name           = "jenkins"
+  source         = "../modules/http-app"
   source_image   = "centos7-base-1523629144"
+  disk_size_gb   = "20"
   target_size    = "1"
-  jenkins_port   = "80"
+  listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }
 
 module "Provision_Vault" {
-  source         = "../modules/vault"
+  name           = "vault"
+  source         = "../modules/http-app"
   source_image   = "centos7-base-1523629144"
+  disk_size_gb   = "20"
   target_size    = "1"
-  vault_port     = "80"
+  listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }
 
 module "Provision_Ansible" {
-  source         = "../modules/ansible"
+  name           = "ansible"
+  source         = "../modules/http-app"
   source_image   = "centos7-base-1523629144"
+  disk_size_gb   = "20"
   target_size    = "1"
-  ansible_port   = "80"
+  listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
   app-subnets    = "${module.Core_Network.app-subnets}"
+  sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }

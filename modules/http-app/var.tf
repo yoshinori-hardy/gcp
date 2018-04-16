@@ -1,5 +1,5 @@
 variable "name" {
-  default     = "jenkins"
+  default     = "un-named"
   description = "The name of the app"
 }
 
@@ -7,9 +7,9 @@ variable "region" {
   description = "region we're working in"
 }
 
-variable "jenkins_port" {
-  description = "Port to send Jenkins traffic to"
-  default     = "8080"
+variable "listener_port" {
+  description = "Port to send app traffic to"
+  default     = "80"
 }
 
 variable "health-check" {
@@ -18,13 +18,18 @@ variable "health-check" {
 }
 
 variable "target_size" {
-  description = "target size of jenkins instance group"
-  default     = "3"
+  description = "target size of ansible instance group"
+  default     = "1"
 }
 
 variable "machine_type" {
   description = "Machine type to use"
   default     = "g1-small"
+}
+
+variable "disk_size_gb" {
+  description = "Size in Gb of the data vol"
+  default     = "10"
 }
 
 variable "source_image" {
@@ -34,6 +39,11 @@ variable "source_image" {
 variable "app-subnets" {
   type        = "list"
   description = "imported app subnets from the network module"
+}
+
+variable "sub-map" {
+  type        = "map"
+  description  = "imported subnet map"
 }
 
 variable local_cmd_create {
