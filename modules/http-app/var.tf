@@ -1,5 +1,5 @@
 variable "name" {
-  default     = "ansible"
+  default     = "un-named"
   description = "The name of the app"
 }
 
@@ -7,8 +7,8 @@ variable "region" {
   description = "region we're working in"
 }
 
-variable "ansible_port" {
-  description = "Port to send ansible traffic to"
+variable "listener_port" {
+  description = "Port to send app traffic to"
   default     = "80"
 }
 
@@ -27,6 +27,11 @@ variable "machine_type" {
   default     = "g1-small"
 }
 
+variable "disk_size_gb" {
+  description = "Size in Gb of the data vol"
+  default     = "10"
+}
+
 variable "source_image" {
   description = "The boot disk image to use"
 }
@@ -34,4 +39,19 @@ variable "source_image" {
 variable "app-subnets" {
   type        = "list"
   description = "imported app subnets from the network module"
+}
+
+variable "sub-map" {
+  type        = "map"
+  description  = "imported subnet map"
+}
+
+variable local_cmd_create {
+  description = "Command to run on create as local-exec provisioner for the instance group manager."
+  default     = ":"
+}
+
+variable local_cmd_destroy {
+  description = "Command to run on destroy as local-exec provisioner for the instance group manager."
+  default     = ":"
 }

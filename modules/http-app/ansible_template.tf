@@ -1,4 +1,4 @@
-data "template_file" "vault-start-script" {
+data "template_file" "app-start-script" {
   template = <<EOF
 #!/bin/bash -eax
 
@@ -11,18 +11,18 @@ ansible-playbook web.yml
 EOF
   }
 
-resource "google_compute_instance_template" "vault_instance_template" {
-  name        = "vault-instance-template-${uuid()}"
-  description = "This template is used to build vault Server Instances"
+resource "google_compute_instance_template" "app_instance_template" {
+  name        = "${var.name}-${uuid()}"
+  description = "This template is used to build Application Server Instances"
 
-  tags = ["vault", "fw-ssh", "fw-http", "fw-https", "rt-int"]
+  tags = ["${var.name}", "fw-ssh", "fw-http", "fw-https", "rt-int"]
 
   labels = {
-    role = "vault"
+    role = "${var.name}"
   }
 
   instance_description = "Built using TF instance template"
-  machine_type         = "g1-small"
+  machine_type         = "${var.machine_type}"
   can_ip_forward       = false
 
   scheduling {
@@ -36,16 +36,24 @@ resource "google_compute_instance_template" "vault_instance_template" {
     boot         = true
   }
 
+  disk {
+    auto_delete  = true
+    boot         = false
+    disk_size_gb = "${var.disk_size_gb}"
+  }
+
   network_interface {
-    subnetwork = "${element(var.app-subnets, 1)}"
+    #subnetwork = "${element(var.app-subnets, count.index)}"
+    #subnetwork = "${lookup(sub-map, var.name, [default])}"
+    subnetwork = "${var.sub-map["${var.name}"]}"
   }
 
   metadata {
-    startup-script = "${data.template_file.vault-start-script.rendered}"
+    startup-script = "${data.template_file.app-start-script.rendered}"
   }
 
   service_account {
-    email = "${google_service_account.vault-service-account.email}"
+    email = "${google_service_account.app-service-account.email}"
     scopes = ["storage-ro"]
   }
 

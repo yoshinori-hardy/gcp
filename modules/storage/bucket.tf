@@ -1,4 +1,4 @@
 resource "google_storage_bucket" "devops-bucket" {
-  name     = "bucket-lkgladj"
+  name     = "bucket-${uuid()}"
   location = "EU"
 }

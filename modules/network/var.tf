@@ -14,6 +14,11 @@ variable "subnet_dmz" {
   description = "internet facing subnet"
 }
 
+variable "name" {
+  description = "Map of app names"
+  type        = "list"
+}
+
 variable "subnets" {
   description = "app subnet ranges"
   type        = "list"

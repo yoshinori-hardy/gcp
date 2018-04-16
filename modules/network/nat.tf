@@ -24,7 +24,7 @@ EOF
   }
 
 resource "google_compute_instance_template" "nat_instance_template" {
-  name        = "nat-instance-template"
+  name        = "nat-${uuid()}"
   depends_on = ["google_service_account.nat-service-account"]
   description = "This template is used to build NAT Instances"
 
