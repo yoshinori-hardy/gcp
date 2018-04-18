@@ -6,10 +6,12 @@ echo "fetch Ansible here and run it"
 cd /opt && gsutil cp gs://ansible-plays/ansible-playbooks.zip .
 unzip ansible-playbooks.zip
 cd ansible-playbooks
+echo "${var.name}"
 echo "sleeping for 30" && sleep 30
-ansible-playbook web.yml
+ansible-playbook "${var.name}".yml
 EOF
-  }
+
+}
 
 resource "google_compute_instance_template" "app_instance_template" {
   name        = "${var.name}-${uuid()}"
@@ -43,8 +45,6 @@ resource "google_compute_instance_template" "app_instance_template" {
   }
 
   network_interface {
-    #subnetwork = "${element(var.app-subnets, count.index)}"
-    #subnetwork = "${lookup(sub-map, var.name, [default])}"
     subnetwork = "${var.sub-map["${var.name}"]}"
   }
 

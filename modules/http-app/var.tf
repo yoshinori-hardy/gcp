@@ -36,11 +36,6 @@ variable "source_image" {
   description = "The boot disk image to use"
 }
 
-variable "app-subnets" {
-  type        = "list"
-  description = "imported app subnets from the network module"
-}
-
 variable "sub-map" {
   type        = "map"
   description  = "imported subnet map"

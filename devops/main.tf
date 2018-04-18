@@ -37,7 +37,6 @@ module "Provision_Jenkins" {
   listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
-  app-subnets    = "${module.Core_Network.app-subnets}"
   sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }
@@ -45,13 +44,12 @@ module "Provision_Jenkins" {
 module "Provision_Vault" {
   name           = "vault"
   source         = "../modules/http-app"
-  source_image   = "centos7-base-1523629144"
+  source_image   = "centos6-base-1523623671"
   disk_size_gb   = "20"
   target_size    = "1"
   listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
-  app-subnets    = "${module.Core_Network.app-subnets}"
   sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }
@@ -65,7 +63,6 @@ module "Provision_Ansible" {
   listener_port  = "80"
   machine_type   = "g1-small"
   region         = "europe-west2"
-  app-subnets    = "${module.Core_Network.app-subnets}"
   sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
 }
