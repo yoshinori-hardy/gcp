@@ -50,3 +50,8 @@ variable local_cmd_destroy {
   description = "Command to run on destroy as local-exec provisioner for the instance group manager."
   default     = ":"
 }
+
+variable ansible_inventory {
+  description = "The inventory file to use during the ansible run"
+  default     = "HOSTS"
+}
