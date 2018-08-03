@@ -4,7 +4,7 @@ resource "google_service_account" "app-service-account" {
 }
 
 resource "google_project_iam_binding" "app-iam-link" {
-  role    = "projects/peaceful-web-200808/roles/object_ro"
+  role    = "projects/xxxxxxxxxx/roles/object_ro"
 
   members = [
     "serviceAccount:${google_service_account.app-service-account.email}",
