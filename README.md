@@ -8,8 +8,8 @@ services.  The IaC is built using Terraform, full documentation can be found her
 
 https://www.terraform.io/docs/index.html
 
-GCP is moving fast at the moment and there's no ongoing support for this, but feel free 
-to use it if you're just playing/learning.
+GCP is moving fast at the moment and I'm not actively working on this repo, so stuff 
+might need the odd tweak, but feel free to use it if you're just playing/learning.
 
 ##todo refactor tf modules to use count on child blocks once TF0.12 is released
 
