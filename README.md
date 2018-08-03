@@ -2,7 +2,7 @@
 
 This is a POC I used to start learning google cloud, and messed around with some interpolations.
 
-This repo provides the base network infrastructure and security requirements to
+This repo provides the base network infrastructure and some security to
 support the deployment of a devops automation platform and its subsequent
 services.  The IaC is built using Terraform, full documentation can be found here:
 
