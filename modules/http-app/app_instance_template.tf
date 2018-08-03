@@ -6,9 +6,8 @@ echo "fetch Ansible here and run it"
 cd /opt && gsutil cp gs://ansible-plays/ansible-playbooks.zip .
 unzip ansible-playbooks.zip
 cd ansible-playbooks
-echo "${var.name}"
 echo "sleeping for 30" && sleep 30
-ansible-playbook "${var.name}".yml
+ansible-playbook -i "${var.ansible_inventory}" "${var.name}".yml
 EOF
 
 }

@@ -61,8 +61,9 @@ module "Provision_Ansible" {
   disk_size_gb   = "20"
   target_size    = "1"
   listener_port  = "80"
-  machine_type   = "g1-small"
+  machine_type   = "n1-standard-2"
   region         = "europe-west2"
   sub-map        = "${module.Core_Network.sub-map}"
   health-check   = "/hello_world.html"
+  ansible_inventory = "awx.inventory"
 }
